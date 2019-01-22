@@ -25,12 +25,12 @@ public class HeliTask1State extends State {
     @Override
     public void handleInput() {
         if(Gdx.input.justTouched()) {
-            //Heli newHeli = new Heli(Exercise_0.WIDTH / 2, Exercise_0.HEIGHT / 2);
-            //newHeli.setRandomVelocity();
-            //helis.add(newHeli);
+            Heli newHeli = new Heli(Exercise_0.WIDTH / 2, Exercise_0.HEIGHT / 2);
+            newHeli.setRandomVelocity();
+            helis.add(newHeli);
 
-            gsm.set(new MenuState(gsm));
-            //dispose();
+//            gsm.set(new MenuState(gsm));
+//            dispose();
 
         }
 
@@ -40,7 +40,7 @@ public class HeliTask1State extends State {
     public void update(float dt) {
         handleInput();
         for (Heli heli : helis) {
-            heli.checkCollision();
+            //heli.checkCollision(helis);
             heli.update(dt);
         }
     }

@@ -3,6 +3,7 @@ package com.mads.tdt4240.ex0.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
 import com.mads.tdt4240.ex0.Exercise_0;
 
 import java.util.Random;
@@ -47,12 +48,21 @@ public class Heli {
 
     public void setRandomVelocity() {
         Random rand = new Random();
-        velocity.add(rand.nextInt(3), rand.nextInt(3), 0);
+        velocity.add(rand.nextInt(3)+1, rand.nextInt(3)+1, 0);
         velocity.scl(MOVEMENT);
         setTexture();
     }
 
-    public void checkCollision() {
+    public void checkCollision(Array<Heli> helis) {
+        for (Heli heli : helis) {
+            if(heli.position.equals(position)) {
+                return;
+            }
+            if(bounds.contains(heli.bounds)) {
+                System.out.println("collision");
+        }
+
+        }
 
     }
 
@@ -86,15 +96,8 @@ public class Heli {
     }
 
     public void touchControl(Vector3 touch_position) {
-        if(touch_position.x > position.x) {
-            velocity.x = (float) ((touch_position.x - position.x)*TOUCH_SENSE);
-        } else {
-            velocity.x = (float) ((touch_position.x - position.x)*TOUCH_SENSE);
-        }
-        //if (touch_position.y > position.y) {
-          //  velocity.y
-       // }
-
-        //velocity.y -= (touch_position.y - position.y)*TOUCH_SENSE;
+        touch_position.y = Exercise_0.HEIGHT - touch_position.y;
+        velocity.set(touch_position).sub(position).nor();
+        //velocity.y = -velocity.y;
     }
 }
