@@ -3,7 +3,6 @@ package com.mads.tdt4240.ex0.sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Array;
 import com.mads.tdt4240.ex0.Exercise_0;
 
 import java.util.Random;
@@ -11,7 +10,6 @@ import java.util.Random;
 public class Heli {
 
     private static final float MOVEMENT = (float) 0.2;
-    private static final double TOUCH_SENSE = 0.01;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -53,17 +51,8 @@ public class Heli {
         setTexture();
     }
 
-    public void checkCollision(Array<Heli> helis) {
-        for (Heli heli : helis) {
-            if(heli.position.equals(position)) {
-                return;
-            }
-            if(bounds.contains(heli.bounds)) {
-                System.out.println("collision");
-        }
-
-        }
-
+    public boolean collides(Rectangle otherHeli) {
+        return otherHeli.overlaps(bounds);
     }
 
     public void checkWallCollision() {
@@ -99,5 +88,9 @@ public class Heli {
         touch_position.y = Exercise_0.HEIGHT - touch_position.y;
         velocity.set(touch_position).sub(position).nor();
         //velocity.y = -velocity.y;
+    }
+
+    public Rectangle getBounds() {
+        return bounds;
     }
 }
