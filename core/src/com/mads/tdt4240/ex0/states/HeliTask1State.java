@@ -1,14 +1,19 @@
 package com.mads.tdt4240.ex0.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.mads.tdt4240.ex0.Exercise_0;
 import com.mads.tdt4240.ex0.sprites.Heli;
 
 
+
 public class HeliTask1State extends State {
+
+    BitmapFont font = new BitmapFont();
 
     private Texture background;
     private Heli heli1, heli2, heli3;
@@ -38,21 +43,37 @@ public class HeliTask1State extends State {
     @Override
     public void update(float dt) {
         handleInput();
-        if (heli1.collides(heli2.getBounds())) {
-            System.out.println("Collision 1 and 2");
-        }
-        if (heli1.collides(heli3.getBounds())) {
-            System.out.println("Collision 1 and 3");
-        }
-        if (heli2.collides(heli3.getBounds())) {
-            System.out.println("Collision 2 and 3");
-        }
+        checkCollision();
         heli1.update(dt);
         heli2.update(dt);
         heli3.update(dt);
     }
 
+    private void doCollision(Heli heliA, Heli heliB) {
+        Rectangle intersection = new Rectangle();
+        Intersector.intersectRectangles(heliA.getBounds(), heliB.getBounds(), intersection);
+        if (intersection.x > heliA.getBounds().getX() || (intersection.x + intersection.width < heliA.getBounds().getX() + heliA.getBounds().getWidth())) {
+            heliA.collideVertical();
+            heliB.collideVertical();
+        }
+        if (intersection.y > heliA.getBounds().getY() || (intersection.y + intersection.height < heliA.getBounds().getY() + heliA.getBounds().getHeight())) {
+            heliA.collideHorizontal();
+            heliB.collideHorizontal();
+        }
+    }
 
+
+    private void checkCollision() {
+        if(heli1.getBounds().overlaps(heli2.getBounds())) {
+            doCollision(heli1, heli2);
+        }
+        if(heli1.getBounds().overlaps(heli3.getBounds())){
+            doCollision(heli1, heli3);
+        }
+        if(heli2.getBounds().overlaps(heli3.getBounds())){
+            doCollision(heli2, heli3);
+        }
+    }
 
 
     @Override
@@ -60,9 +81,10 @@ public class HeliTask1State extends State {
         sb.begin();
         sb.draw(background, 0, 0, Exercise_0.WIDTH, Exercise_0.HEIGHT);
         sb.draw(heli1.getTexture(), heli1.getPosition().x, heli1.getPosition().y);
-        sb.draw(heli2.getTexture(), heli2.getPosition().x, heli3.getPosition().y);
+        sb.draw(heli2.getTexture(), heli2.getPosition().x, heli2.getPosition().y);
         sb.draw(heli3.getTexture(), heli3.getPosition().x, heli3.getPosition().y);
 
+        font.draw(sb, "x: "+heli1.getPosition().x+"y:"+heli1.getPosition().y,10, Exercise_0.HEIGHT-25);
         sb.end();
     }
 

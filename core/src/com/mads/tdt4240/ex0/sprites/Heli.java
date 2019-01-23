@@ -1,6 +1,7 @@
 package com.mads.tdt4240.ex0.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mads.tdt4240.ex0.Exercise_0;
@@ -65,7 +66,6 @@ public class Heli {
             velocity.y = -velocity.y;
         }
 
-
     }
 
     public void setTexture() {
@@ -92,5 +92,13 @@ public class Heli {
 
     public Rectangle getBounds() {
         return bounds;
+    }
+
+    public void collideHorizontal() {
+        velocity.y = -velocity.y;
+    }
+
+    public void collideVertical() {
+        velocity.x = -velocity.x;
     }
 }

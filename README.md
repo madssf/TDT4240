@@ -4,5 +4,8 @@
 
 - Oppløsning Android-mode
 - Knapper MenuState
-- oppgave 3
+- oppgave 3a
 - oppgave 4
+
+### Sjekk ut
+- Gdx.graphics.getDensity(for skalering)
