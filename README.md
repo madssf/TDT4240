@@ -4,7 +4,6 @@
 
 - Oppløsning Android-mode
 - Knapper MenuState
-- oppgave 3a
 - oppgave 4
 
 ### Sjekk ut

@@ -21,7 +21,6 @@ public class HeliTask2State extends State {
         super(gsm);
         background = new Texture("bg_heli.png");
         heli = new Heli(Exercise_0.WIDTH / 2, Exercise_0.HEIGHT / 2);
-        heli.setRandomVelocity();
     }
 
     @Override

@@ -9,8 +9,8 @@ import com.mads.tdt4240.ex0.states.MenuState;
 
 public class Exercise_0 extends ApplicationAdapter {
 
-	public static final int WIDTH = 480;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 800;
+	public static final int HEIGHT = 480;
 
 	public static final String TITLE = "TDT4240 - Exercise 0";
 

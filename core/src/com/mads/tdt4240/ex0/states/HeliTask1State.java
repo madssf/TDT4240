@@ -13,7 +13,6 @@ import com.mads.tdt4240.ex0.sprites.Heli;
 
 public class HeliTask1State extends State {
 
-    BitmapFont font = new BitmapFont();
 
     private Texture background;
     private Heli heli1, heli2, heli3;
@@ -83,8 +82,6 @@ public class HeliTask1State extends State {
         sb.draw(heli1.getTexture(), heli1.getPosition().x, heli1.getPosition().y);
         sb.draw(heli2.getTexture(), heli2.getPosition().x, heli2.getPosition().y);
         sb.draw(heli3.getTexture(), heli3.getPosition().x, heli3.getPosition().y);
-
-        font.draw(sb, "x: "+heli1.getPosition().x+"y:"+heli1.getPosition().y,10, Exercise_0.HEIGHT-25);
         sb.end();
     }
 

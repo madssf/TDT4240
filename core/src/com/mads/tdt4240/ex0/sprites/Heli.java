@@ -1,29 +1,38 @@
 package com.mads.tdt4240.ex0.sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mads.tdt4240.ex0.Exercise_0;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Heli {
 
-    private static final float MOVEMENT = (float) 0.2;
+    private static final float MOVEMENT = 0.5f;
+    private static final float FRAME_DURATION = 0.1f;
+    private int[]  FRAMES = {1, 2, 3 ,4};
+
+    private float timePassed = 0;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
 
     private Texture heli;
+    public Animation<TextureRegion> heliL, heliR;
+
 
     public Heli(int x, int y){
 
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0,0 ,0);
-        heli = new Texture("heli1_left.png");
+        heli = new Texture("heliL_1.png");
         bounds =  new Rectangle(x, y, heli.getWidth(), heli.getHeight());
-
     }
 
     public void update(Float dt) {
@@ -48,12 +57,14 @@ public class Heli {
     public void setRandomVelocity() {
         Random rand = new Random();
         velocity.add(rand.nextInt(3)+1, rand.nextInt(3)+1, 0);
+        if (rand.nextBoolean()) {
+            velocity.x = -velocity.x;
+        }
+        if (rand.nextBoolean()) {
+            velocity.y = -velocity.y;
+        }
         velocity.scl(MOVEMENT);
         setTexture();
-    }
-
-    public boolean collides(Rectangle otherHeli) {
-        return otherHeli.overlaps(bounds);
     }
 
     public void checkWallCollision() {
@@ -69,11 +80,24 @@ public class Heli {
     }
 
     public void setTexture() {
-        if (velocity.x > 0) {
-            heli = new Texture("heli1_right.png");
+
+        String heliString;
+
+        if (velocity.x > 0) { heliString = "heliR_"; } else { heliString = "heliL_"; }
+        if (timePassed > FRAME_DURATION*3) {
+            timePassed = 0;
+            heli = new Texture(heliString+"4.png");
+        } else if (timePassed > FRAME_DURATION*2) {
+            timePassed += Gdx.graphics.getDeltaTime();
+            heli = new Texture(heliString+"3.png");
+        } else if (timePassed > FRAME_DURATION) {
+            timePassed += Gdx.graphics.getDeltaTime();
+            heli = new Texture(heliString + "2.png");
         } else {
-            heli = new Texture("heli1_left.png");
+            timePassed += Gdx.graphics.getDeltaTime();
+            heli = new Texture(heliString + "1.png");
         }
+
     }
 
     public Texture getTexture() {
