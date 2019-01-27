@@ -2,21 +2,17 @@ package com.mads.tdt4240.ex0.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mads.tdt4240.ex0.Exercise_0;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Heli {
 
     private static final float MOVEMENT = 0.5f;
     private static final float FRAME_DURATION = 0.1f;
-    private int[]  FRAMES = {1, 2, 3 ,4};
 
     private float timePassed = 0;
     private Vector3 position;
@@ -24,7 +20,6 @@ public class Heli {
     private Rectangle bounds;
 
     private Texture heli;
-    public Animation<TextureRegion> heliL, heliR;
 
 
     public Heli(int x, int y){
@@ -40,18 +35,6 @@ public class Heli {
         checkWallCollision();
         setTexture();
         bounds.setPosition(position.x, position.y);
-        /*
-        if(position.y > 0)
-            velocity.add(0, GRAVITY, 0);
-        velocity.scl(dt);
-        position.add(MOVEMENT * dt, velocity.y, 0);
-        if(position.y < 0)
-            position.y = 0;
-
-
-        velocity.scl(1/dt);
-        bounds.setPosition(position.x, position.y);
-        */
     }
 
     public void setRandomVelocity() {
@@ -109,7 +92,6 @@ public class Heli {
     }
 
     public void touchControl(Vector3 touch_position) {
-        touch_position.y = Exercise_0.HEIGHT - touch_position.y;
         velocity.set(touch_position).sub(position).nor();
         //velocity.y = -velocity.y;
     }
