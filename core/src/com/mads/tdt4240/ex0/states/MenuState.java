@@ -24,7 +24,7 @@ public class MenuState extends State {
         task1_3 = new Button("task1+3.png");
         task2 = new Button("task2.png");
         task4 = new Button("task4.png");
-        task1_3.setPosition(Exercise_0.WIDTH / 2 - task1_3.getTexture().getWidth() /2, Exercise_0.HEIGHT - (3/2) * task1_3.getTexture().getHeight());
+        task1_3.setPosition(Exercise_0.WIDTH / 2 - task1_3.getTexture().getWidth() /2, Exercise_0.HEIGHT - (3/2)* task1_3.getTexture().getHeight());
         task2.setPosition(Exercise_0.WIDTH / 2 - task2.getTexture().getWidth() /2, Exercise_0.HEIGHT / 2 - task2.getTexture().getHeight()/2);
         task4.setPosition(Exercise_0.WIDTH / 2 - task4.getTexture().getWidth() /2, task4.getTexture().getHeight()/3);
     }
