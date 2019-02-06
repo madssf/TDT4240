@@ -1,7 +1,6 @@
 package com.mads.tdt4240.ex0.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
@@ -18,7 +17,7 @@ public class MenuState extends State {
 
 
 
-    public MenuState(GameStateManager gsm){
+    public MenuState(GameStateManagerSingleton gsm){
         super(gsm);
         background = new Texture("bg.png");
         task1_3 = new Button("task1+3.png");

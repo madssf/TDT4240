@@ -11,7 +11,7 @@ import static java.lang.Math.abs;
 public class Paddle {
 
     private Texture paddle;
-    private static final float MOVEMENT = 2.0f;
+    private static final float MOVEMENT = 5.0f;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds;
@@ -49,11 +49,11 @@ public class Paddle {
         }
     }
 
-    public void setVelocity(boolean direction) {
+    public void setVelocity(boolean direction, float speed) {
         if (direction) {
-            velocity.y = MOVEMENT;
+            velocity.y = speed * MOVEMENT;
         } else {
-            velocity.y = -MOVEMENT;
+            velocity.y = -speed * MOVEMENT;
         }
 
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.mads.tdt4240.ex0.Exercise_0;
-import com.mads.tdt4240.ex0.PongCPU;
+import com.mads.tdt4240.ex0.AI.PongAI;
 import com.mads.tdt4240.ex0.sprites.Ball;
 import com.mads.tdt4240.ex0.sprites.Button;
 import com.mads.tdt4240.ex0.sprites.Paddle;
@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 public class PongState extends State{
 
+    private final int WIN_TARGET = 21;
 
     private Texture bg;
     private Ball ball;
@@ -22,10 +23,10 @@ public class PongState extends State{
 
     BitmapFont font = new BitmapFont();
 
-    private PongCPU CPU;
+    private com.mads.tdt4240.ex0.AI.PongAI PongAI;
 
 
-    public PongState(GameStateManager gsm, Paddle paddleL, Paddle paddleR) {
+    public PongState(GameStateManagerSingleton gsm, Paddle paddleL, Paddle paddleR) {
         super(gsm);
         bg = new Texture("bg.png");
         exit = new Button("exit.png");
@@ -35,7 +36,7 @@ public class PongState extends State{
         ball.setRandomVelocity();
         this.paddleL = paddleL;
         this.paddleR = paddleR;
-        CPU = new PongCPU(paddleR, ball);
+        PongAI = new PongAI(paddleR, paddleL, ball);
         paddleL.resetPos();
         paddleR.resetPos();
 
@@ -61,21 +62,25 @@ public class PongState extends State{
 
     @Override
     public void update(float dt) {
+        if(paddleR.getPoints() >= WIN_TARGET){
+            gsm.set(new EndState(gsm, "CPU"));
+        }
+        if(paddleL.getPoints() >= WIN_TARGET){
+            gsm.set(new EndState(gsm, "Player"));
+        }
         handleInput();
         checkCollision();
         ball.update(dt);
         paddleL.update(dt);
-        CPU.update();
+        PongAI.update();
         paddleR.update(dt);
         if(ball.getPosition().x < 0){
             paddleR.addPoint();
             gsm.set(new PongState(gsm, paddleL, paddleR));
-            }
-
-        else if(ball.getPosition().x + ball.getBounds().getWidth() > Exercise_0.WIDTH){
+        } else if(ball.getPosition().x + ball.getBounds().getWidth() > Exercise_0.WIDTH){
             paddleL.addPoint();
             gsm.set(new PongState(gsm, paddleL, paddleR));
-            }
+        }
 
     }
 

@@ -8,9 +8,9 @@ public abstract class State {
 
     protected OrthographicCamera cam;
     protected Vector3 mouse;
-    protected GameStateManager gsm;
+    protected GameStateManagerSingleton gsm;
 
-    protected State(GameStateManager gsm){
+    protected State(GameStateManagerSingleton gsm){
         this.gsm = gsm;
         cam = new OrthographicCamera();
         cam.setToOrtho(false, 800, 480);

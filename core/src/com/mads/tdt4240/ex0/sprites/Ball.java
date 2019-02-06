@@ -10,8 +10,9 @@ import java.util.Random;
 
 public class Ball {
 
-    private final static int MOVEMENT = 3;
-    private static final float MOVEMENT_MOD = 1.1f;
+    private final static int MOVEMENT = 2;
+    private final static int MOVEMENT_MIN = 3;
+    private static final float MOVEMENT_MOD = 1.2f;
     private Vector3 position;
     private Vector3 velocity;
     private Rectangle bounds; //ønsker bare grense på x grensene
@@ -23,7 +24,7 @@ public class Ball {
     public Ball() {
         position = new Vector3(0,0, 0);
         velocity = new Vector3(0, 0, 0);
-        ball = new Texture("ball.png"); //foreløpig et heli
+        ball = new Texture("ball.png");
         bounds = new Rectangle(0, 0, ball.getWidth(), ball.getHeight());
 
     }
@@ -53,7 +54,7 @@ public class Ball {
 
     public void setRandomVelocity() {
         Random rand = new Random();
-        velocity.add(rand.nextInt(MOVEMENT) + 1, rand.nextInt(MOVEMENT) + 1, 0);
+        velocity.add(rand.nextInt(MOVEMENT) + MOVEMENT_MIN, rand.nextInt(MOVEMENT) + MOVEMENT_MIN, 0);
         if (rand.nextBoolean()) {
             velocity.x = -velocity.x;
         }

@@ -1,17 +1,23 @@
 package com.mads.tdt4240.ex0.states;
 
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
 import java.util.Stack;
 
-public class GameStateManager {
+public class GameStateManagerSingleton {
+    private static final GameStateManagerSingleton ourInstance = new GameStateManagerSingleton();
+
+    public static GameStateManagerSingleton getInstance() {
+        return ourInstance;
+    }
 
     private Stack<State> states;
 
-    public GameStateManager(){
-        states = new Stack<State>();
-    }
+    private GameStateManagerSingleton() {
 
+        states = new Stack<State>();
+
+    }
     public void push(State state){
         states.push(state);
     }

@@ -22,7 +22,7 @@ public class HeliTask1State extends State {
 
 
 
-    public HeliTask1State(GameStateManager gsm){
+    public HeliTask1State(GameStateManagerSingleton gsm){
         super(gsm);
         background = new Texture("bg_heli.png");
         exit = new Button("exit.png");
